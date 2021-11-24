@@ -1,7 +1,8 @@
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 public class BankOps {
-//    private static int randomAccountNo;
     // properties
     String customerFirstName;
     String customerLastName;
@@ -18,6 +19,8 @@ public class BankOps {
 
     // method to create new set up new customer
     public static void newCustomer() {
+
+        Calendar date = Calendar.getInstance();
 
         int newCustomerAccountNo = (int) (Math.floor(Math.random() * 9999999) + 1000000);
         Scanner bankScanner = new Scanner(System.in);
@@ -41,9 +44,9 @@ public class BankOps {
         System.out.println();
         System.out.printf("""
                 Account Number: %s
-                First Name: %s
-                Last Name: %s
-                """, newCustomerAccountNo, newCustomerFirstName, newCustomerLastName);
+                Account Holder: %s %s
+                Date Created: %tB %te, %tY%n
+                """, newCustomerAccountNo, newCustomerFirstName, newCustomerLastName, date, date, date);
         customer.showMenu();
 
     }
