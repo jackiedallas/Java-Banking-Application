@@ -4,16 +4,18 @@ public class BankOps {
     // properties
     String customerFirstName;
     String customerLastName;
-    double balance;
+    double balance = 0;
     double previousTransaction;
     int randomAccountNo = (int) (Math.floor(Math.random() * 9999999) + 1000000);
 
+    // constructor to initialize bank methods
     public BankOps(String customerFirstName, String customerLastName, int randomAccountNo) {
         this.customerFirstName = customerFirstName;
         this.customerLastName = customerLastName;
     }
 
 
+    // method to create new set up new customer
     public void newCustomer() {
 
         Scanner bankScanner = new Scanner(System.in);
@@ -32,6 +34,7 @@ public class BankOps {
 
     }
 
+    // switch statement to navigate menu
     public void showMenu() {
         Scanner menuScanner = new Scanner(System.in);
         int menuSelection;
@@ -54,13 +57,22 @@ public class BankOps {
             case 5 -> exitBank();
             default -> showMenu();
         }
+    }
 
-        public void deposit() {
-            Scanner depositScanner = new Scanner(System.in);
-            System.out.println("Enter deposit amount:");
-            double depositAmount = depositScanner.nextDouble();
+    // deposit monies method
+    public void deposit() {
+        Scanner depositScanner = new Scanner(System.in);
+        System.out.println("Enter deposit amount:");
+        double depositAmount = depositScanner.nextDouble();
 
+        // if statement to add to balance
+        if (depositAmount != 0) {
+            balance += depositAmount;
+            previousTransaction = depositAmount;
         }
 
     }
+
+
+
 }
