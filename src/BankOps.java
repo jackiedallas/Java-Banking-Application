@@ -87,7 +87,7 @@ public class BankOps {
             balance += depositAmount;
             previousTransaction = depositAmount;
         }
-        System.out.printf("You deposited $%.2f\n", depositAmount);
+        System.out.printf("You deposited $%.2f%n", depositAmount);
         showMenu();
 
     }
@@ -104,13 +104,15 @@ public class BankOps {
         } else {
             balance -= withdrawalAmount;
             previousTransaction -= withdrawalAmount;
-            System.out.printf("You now have a balance of $%.2f\n", balance);
+            System.out.printf("You took out $%.2f%n", withdrawalAmount);
+            System.out.printf("You now have a balance of $%.2f%n", balance);
         }
         showMenu();
     }
 
     public void showBalance() {
-
+        System.out.printf("Your current balance is $%.2f%n", balance);
+        showMenu();
     }
 
 
