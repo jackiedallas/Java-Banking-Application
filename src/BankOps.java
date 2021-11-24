@@ -34,7 +34,7 @@ public class BankOps {
         int newCustomerAge = bankScanner.nextInt();
 
         if (newCustomerAge < 18) {
-            System.out.println("You must be at least 18 years old to open an account.");
+            System.out.println("You must be at least 18 years old to open an account.\n");
             newCustomer();
         }
 
@@ -62,7 +62,7 @@ public class BankOps {
                 2. Withdraw
                 3. Show Balance
                 4. Previous Transaction
-                5. Exit
+                5. Exit Bank
                 """);
         menuSelection = menuScanner.nextInt();
 
@@ -70,9 +70,12 @@ public class BankOps {
             case 1 -> deposit();
             case 2 -> withdraw();
             case 3 -> showBalance();
-//            case 4 -> previousTrans();
-//            case 5 -> exitBank();
-            default -> showMenu();
+            case 4 -> previousTransaction();
+            case 5 -> exitBank();
+            default -> {
+                System.out.println("Invalid input.");
+                showMenu();
+            }
         }
     }
 
@@ -99,20 +102,51 @@ public class BankOps {
         double withdrawalAmount = withdrawalScanner.nextDouble();
 
         if (withdrawalAmount > balance) {
-            System.out.println("Insufficient funds. Please deposit more money or lower the withdrawal amount.");
-            withdraw();
+            System.out.printf("Your balance of $%.2f is insufficient to complete this transaction.\nPlease deposit more money or lower the withdrawal amount.\n", balance);
+            showMenu();
+        } else if (balance == 0){
+            System.out.println("Your account balance is $0.00, please deposit monies.");
+            showMenu();
         } else {
             balance -= withdrawalAmount;
-            previousTransaction -= withdrawalAmount;
+            previousTransaction = -withdrawalAmount;
             System.out.printf("You took out $%.2f%n", withdrawalAmount);
             System.out.printf("You now have a balance of $%.2f%n", balance);
         }
         showMenu();
     }
 
+    // show balance method
     public void showBalance() {
         System.out.printf("Your current balance is $%.2f%n", balance);
         showMenu();
+    }
+
+    // previous transaction method
+    public void previousTransaction() {
+        System.out.println("Previous Transaction");
+        System.out.println("--------------------");
+        if (previousTransaction > 0) {
+            System.out.printf("Deposit: $%.2f%n", previousTransaction);
+        } else if (previousTransaction < 0) {
+            System.out.printf("Withdrawal: $%.2f%n", previousTransaction);
+        } else {
+            System.out.println("None");
+        }
+        showMenu();
+
+    }
+
+   // exit bank with summary
+    public void exitBank() {
+        System.out.printf("""
+                Account summary:
+                Name -- %s %s
+                Current balance -- $%.2f
+                Last transaction -- $%.2f%n
+                """, customerFirstName, customerLastName, balance, previousTransaction);
+
+        System.out.println("Thanks for banking with Dallas International! Have a great day!");
     }
 
 
