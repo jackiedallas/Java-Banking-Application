@@ -1,23 +1,25 @@
 import java.util.Scanner;
 
 public class BankOps {
+//    private static int randomAccountNo;
     // properties
     String customerFirstName;
     String customerLastName;
     double balance = 0;
     double previousTransaction;
-    int randomAccountNo = (int) (Math.floor(Math.random() * 9999999) + 1000000);
+    int randomAccountNo;
 
     // constructor to initialize bank methods
-    public BankOps(String customerFirstName, String customerLastName, int randomAccountNo) {
+    public BankOps(String customerFirstName, String customerLastName) {
         this.customerFirstName = customerFirstName;
         this.customerLastName = customerLastName;
     }
 
 
     // method to create new set up new customer
-    public void newCustomer() {
+    public static void newCustomer() {
 
+        int newCustomerAccountNo = (int) (Math.floor(Math.random() * 9999999) + 1000000);
         Scanner bankScanner = new Scanner(System.in);
         System.out.println("Welcome to Dallas International Bank!");
         System.out.println();
@@ -25,11 +27,23 @@ public class BankOps {
         String newCustomerFirstName = bankScanner.nextLine();
         System.out.println("Please enter your last name:");
         String newCustomerLastName = bankScanner.nextLine();
-        bankScanner.nextLine();
         System.out.println("Please enter your age:");
         int newCustomerAge = bankScanner.nextInt();
 
-        BankOps customer = new BankOps(newCustomerFirstName, newCustomerLastName, randomAccountNo);
+        if (newCustomerAge < 18) {
+            System.out.println("You must be at least 18 years old to open an account.");
+            newCustomer();
+        }
+
+        bankScanner.nextLine();
+        BankOps customer = new BankOps(newCustomerFirstName, newCustomerLastName);
+        System.out.println("Account Details");
+        System.out.println();
+        System.out.printf("""
+                Account Number: %s
+                First Name: %s
+                Last Name: %s
+                """, newCustomerAccountNo, newCustomerFirstName, newCustomerLastName);
         customer.showMenu();
 
     }
@@ -53,8 +67,8 @@ public class BankOps {
             case 1 -> deposit();
             case 2 -> withdraw();
             case 3 -> showBalance();
-            case 4 -> previousTrans();
-            case 5 -> exitBank();
+//            case 4 -> previousTrans();
+//            case 5 -> exitBank();
             default -> showMenu();
         }
     }
@@ -65,18 +79,14 @@ public class BankOps {
         System.out.println("Enter deposit amount:");
         double depositAmount = depositScanner.nextDouble();
 
-//         if statement to add to balance
+        // if statement to add to balance
         if (depositAmount != 0) {
             balance += depositAmount;
             previousTransaction = depositAmount;
         }
+        System.out.printf("You deposited $%.2f\n", depositAmount);
+        showMenu();
 
-//        // try catch to add balance
-//        try {
-//            balance += depositAmount;
-//
-//            }
-//        }
     }
 
     // withdraw monies method
@@ -91,9 +101,13 @@ public class BankOps {
         } else {
             balance -= withdrawalAmount;
             previousTransaction -= withdrawalAmount;
-            System.out.printf("You now have a balance of %.2f", balance);
+            System.out.printf("You now have a balance of $%.2f\n", balance);
         }
         showMenu();
+    }
+
+    public void showBalance() {
+
     }
 
 
