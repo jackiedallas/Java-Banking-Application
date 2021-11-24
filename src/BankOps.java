@@ -1,21 +1,19 @@
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Scanner;
 
 public class BankOps {
+
     // properties
     String customerFirstName;
     String customerLastName;
     double balance = 0;
     double previousTransaction;
-    int randomAccountNo;
 
     // constructor to initialize bank methods
     public BankOps(String customerFirstName, String customerLastName) {
         this.customerFirstName = customerFirstName;
         this.customerLastName = customerLastName;
     }
-
 
     // method to create new set up new customer
     public static void newCustomer() {
@@ -53,6 +51,7 @@ public class BankOps {
 
     // switch statement to navigate menu
     public void showMenu() {
+
         Scanner menuScanner = new Scanner(System.in);
         int menuSelection;
         System.out.println("Please select from the menu below");
@@ -77,10 +76,12 @@ public class BankOps {
                 showMenu();
             }
         }
+
     }
 
     // deposit monies method
     public void deposit() {
+
         Scanner depositScanner = new Scanner(System.in);
         System.out.println("Enter deposit amount:");
         double depositAmount = depositScanner.nextDouble();
@@ -90,6 +91,7 @@ public class BankOps {
             balance += depositAmount;
             previousTransaction = depositAmount;
         }
+
         System.out.printf("You deposited $%.2f%n", depositAmount);
         showMenu();
 
@@ -97,6 +99,7 @@ public class BankOps {
 
     // withdraw monies method
     public void withdraw() {
+
         Scanner withdrawalScanner = new Scanner(System.in);
         System.out.println("Enter withdrawal amount:");
         double withdrawalAmount = withdrawalScanner.nextDouble();
@@ -114,16 +117,19 @@ public class BankOps {
             System.out.printf("You now have a balance of $%.2f%n", balance);
         }
         showMenu();
+
     }
 
     // show balance method
     public void showBalance() {
+
         System.out.printf("Your current balance is $%.2f%n", balance);
         showMenu();
     }
 
     // previous transaction method
     public void previousTransaction() {
+
         System.out.println("Previous Transaction");
         System.out.println("--------------------");
         if (previousTransaction > 0) {
@@ -148,9 +154,4 @@ public class BankOps {
 
         System.out.println("Thanks for banking with Dallas International! Have a great day!");
     }
-
-
-
-
-
 }
