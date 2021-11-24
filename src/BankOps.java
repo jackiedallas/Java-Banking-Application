@@ -65,13 +65,38 @@ public class BankOps {
         System.out.println("Enter deposit amount:");
         double depositAmount = depositScanner.nextDouble();
 
-        // if statement to add to balance
+//         if statement to add to balance
         if (depositAmount != 0) {
             balance += depositAmount;
             previousTransaction = depositAmount;
         }
 
+//        // try catch to add balance
+//        try {
+//            balance += depositAmount;
+//
+//            }
+//        }
     }
+
+    // withdraw monies method
+    public void withdraw() {
+        Scanner withdrawalScanner = new Scanner(System.in);
+        System.out.println("Enter withdrawal amount:");
+        double withdrawalAmount = withdrawalScanner.nextDouble();
+
+        if (withdrawalAmount > balance) {
+            System.out.println("Insufficient funds. Please deposit more money or lower the withdrawal amount.");
+            withdraw();
+        } else {
+            balance -= withdrawalAmount;
+            previousTransaction -= withdrawalAmount;
+            System.out.printf("You now have a balance of %.2f", balance);
+        }
+        showMenu();
+    }
+
+
 
 
 
